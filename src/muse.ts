@@ -35,7 +35,7 @@ export const EEG_FREQUENCY = 256;
 export const channelNames = ['TP9', 'AF7', 'AF8', 'TP10', 'AUX'];
 
 export class MuseClient {
-    enableAux = false;
+    enableAux = true;
     deviceName: string | null = '';
     connectionStatus = new BehaviorSubject<boolean>(false);
     rawControlData: Observable<string>;
@@ -83,7 +83,6 @@ export class MuseClient {
         // Battery
         const telemetryCharacteristic = await service.getCharacteristic(TELEMETRY_CHARACTERISTIC);
         this.telemetryData = (await observableCharacteristic(telemetryCharacteristic)).pipe(map(parseTelemetry));
-
         // Gyroscope
         const gyroscopeCharacteristic = await service.getCharacteristic(GYROSCOPE_CHARACTERISTIC);
         this.gyroscopeData = (await observableCharacteristic(gyroscopeCharacteristic)).pipe(map(parseGyroscope));
@@ -143,7 +142,12 @@ export class MuseClient {
     }
 
     async deviceInfo() {
-        const resultListener = this.controlResponses.pipe(filter((r) => !!r.fw), take(1)).toPromise();
+        const resultListener = this.controlResponses
+            .pipe(
+                filter((r) => !!r.fw),
+                take(1),
+            )
+            .toPromise();
         await this.sendCommand('v1');
         return resultListener as Promise<MuseDeviceInfo>;
     }

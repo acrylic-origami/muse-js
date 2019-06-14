@@ -17,9 +17,12 @@
     "test": "npm run lint && jest",
     "test:watch": "jest --watch"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "@types/jest": "^22.2.3",
+    "@types/text-encoding": "0.0.35",
     "event-target-shim": "^3.0.0",
     "fuse-box": "^2.0.0",
     "husky": "^0.14.3",
@@ -35,17 +38,33 @@
   },
   "dependencies": {
     "@types/web-bluetooth": "^0.0.2",
-    "rxjs": "^6.0.0 || ^5.6.0-forward-compat.4"
+    "bleat": "^0.1.8",
+    "express": "^4.16.4",
+    "noble": "^1.9.1",
+    "rxjs": "^6.0.0 || ^5.6.0-forward-compat.4",
+    "socket.io": "^2.2.0"
   },
   "jest": {
-    "moduleFileExtensions": ["ts", "js"],
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
     "transform": {
       "^.+\\.ts$": "ts-jest"
     },
-    "testMatch": ["**/*.spec.ts"]
+    "testMatch": [
+      "**/*.spec.ts"
+    ]
   },
   "lint-staged": {
-    "*.{js,json}": ["prettier --write", "git add"],
-    "*.ts": ["prettier --write", "tslint --fix", "git add"]
+    "*.{js,json}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.ts": [
+      "prettier --write",
+      "tslint --fix",
+      "git add"
+    ]
   }
 }
